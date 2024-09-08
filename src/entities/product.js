@@ -64,6 +64,10 @@ class Products {
     get length(){
         return this.products.length;
     }
+
+    toArray(){
+        return this.products;
+    }
 }
 
 

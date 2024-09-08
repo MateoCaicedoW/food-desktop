@@ -20,7 +20,8 @@ export default function Modal(props) {
     }, [])
 
     return (
-        <div className={`fixed inset-0  bg-black bg-opacity-60 flex items-center justify-center ${isOpen ? '' : 'hidden'}`}>
+        isOpen && 
+        <div className={`fixed inset-0  bg-black bg-opacity-60 flex items-center justify-center`}>
             <div className="bg-white p-4 rounded shadow-md min-w-[600px]">
                 <div className="flex justify-between items-center pb-4">
                     <h2 className="text-lg font-semibold">

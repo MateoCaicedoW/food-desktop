@@ -1,5 +1,5 @@
-const { app, BrowserWindow } = require('electron');
-
+  const { app, BrowserWindow, ipcMain} = require('electron');
+  require('dotenv').config();
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
   app.quit();
@@ -8,19 +8,20 @@ if (require('electron-squirrel-startup')) {
 const createWindow = () => {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    
+    center: true,
+    darkTheme: true,
     autoHideMenuBar: true,
     webPreferences: {
       preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY,
     },
   });
 
-  mainWindow.maximize();
-
   // and load the index.html of the app.
   mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
 
-  // Open the DevTools.
+  mainWindow.once('ready-to-show', () => {
+    mainWindow.maximize();
+  });
 };
 
 // This method will be called when Electron has finished
@@ -46,6 +47,7 @@ app.on('window-all-closed', () => {
     app.quit();
   }
 });
+
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and import them here.

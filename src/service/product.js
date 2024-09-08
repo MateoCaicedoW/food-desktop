@@ -1,30 +1,75 @@
-import { Products } from "../entities/product"
-
-const BASE_URL = 'http://localhost:3001/api'
-
-
+const BASE_URL = window.env.BASE_URL
 
 export const getProducts = async () => {
     try {
         const response = await fetch(`${BASE_URL}/products/list`, {
             method: 'GET',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'ngrok-skip-browser-warning': 'true',
             }
         })  
         
-        if (response.status === 200) {
-            const data = await response.json()
-
-            return data
-        }
-
-        return response
+        const data = await response.json()
+        return data
     }
     catch (error) {     
-        if (error.response) {
-            return error.response.data
-        }
+        return error
+    }
+}
+
+export const createProduct = async (product) => {
+    try {
+        const response = await fetch(`${BASE_URL}/products/create`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'ngrok-skip-browser-warning': 'true',
+            },
+            body: JSON.stringify(product)
+        })  
+        
+        const data = await response.json()
+        return data
+    }
+    catch (error) {     
+        return error
+    }
+}
+
+export const getProductById = async (id) => {
+    try {
+        const response = await fetch(`${BASE_URL}/products/${id}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'ngrok-skip-browser-warning': 'true',
+            }
+        })  
+        
+        const data = await response.json()
+        return data
+    }
+    catch (error) {     
+        return error
+    }
+}
+
+export const updateProduct = async (product) => {
+    try {
+        const response = await fetch(`${BASE_URL}/products/update/${product.id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'ngrok-skip-browser-warning': 'true',
+            },
+            body: JSON.stringify(product)
+        })  
+        
+        const data = await response.json()
+        return data
+    }
+    catch (error) {     
         return error
     }
 }
